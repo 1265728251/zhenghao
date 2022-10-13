@@ -1,4 +1,4 @@
-2022-10-12 16:43:49,588 [INFO] [main] com.zhenghao.demo.DemoApplication [SpringApplication.java : 651] No active profile set, falling back to default profiles: default
+2022-10-12 16:43:49,588 [INFO] [main] DemoApplication [SpringApplication.java : 651] No active profile set, falling back to default profiles: default
 2022-10-12 16:43:55,047 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 249] Multiple Spring Data modules found, entering strict repository configuration mode!
 2022-10-12 16:43:55,049 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 127] Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
 2022-10-12 16:43:55,179 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 187] Finished Spring Data repository scanning in 126ms. Found 0 MongoDB repository interfaces.
@@ -121,7 +121,7 @@ org.springframework.context.ApplicationContextException: Unable to start web ser
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
-	at com.zhenghao.demo.DemoApplication.main(DemoApplication.java:18)
+	at DemoApplication.main(DemoApplication.java:18)
 Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125)
 	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:87)
@@ -225,7 +225,7 @@ Caused by: io.netty.channel.ConnectTimeoutException: connection timed out: /47.1
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.lang.Thread.run(Thread.java:748)
-2022-10-12 16:44:37,069 [INFO] [main] com.zhenghao.demo.DemoApplication [SpringApplication.java : 651] No active profile set, falling back to default profiles: default
+2022-10-12 16:44:37,069 [INFO] [main] DemoApplication [SpringApplication.java : 651] No active profile set, falling back to default profiles: default
 2022-10-12 16:44:39,908 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 249] Multiple Spring Data modules found, entering strict repository configuration mode!
 2022-10-12 16:44:39,908 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 127] Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
 2022-10-12 16:44:40,007 [INFO] [main] o.s.data.repository.config.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java : 187] Finished Spring Data repository scanning in 96ms. Found 0 MongoDB repository interfaces.
@@ -335,7 +335,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2022-10-12 16:44:51,085 [INFO] [main] o.s.scheduling.concurrent.ThreadPoolTaskScheduler [ExecutorConfigurationSupport.java : 181] Initializing ExecutorService 'taskScheduler'
 2022-10-12 16:44:51,671 [INFO] [main] o.s.boot.actuate.endpoint.web.EndpointLinksResolver [EndpointLinksResolver.java : 58] Exposing 17 endpoint(s) beneath base path '/actuator'
 2022-10-12 16:44:52,072 [INFO] [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [TomcatWebServer.java : 203] Tomcat started on port(s): 9091 (http) with context path ''
-2022-10-12 16:44:52,564 [INFO] [main] com.zhenghao.demo.DemoApplication [StartupInfoLogger.java : 61] Started DemoApplication in 17.445 seconds (JVM running for 18.335)
+2022-10-12 16:44:52,564 [INFO] [main] DemoApplication [StartupInfoLogger.java : 61] Started DemoApplication in 17.445 seconds (JVM running for 18.335)
 2022-10-12 16:44:52,574 [INFO] [main] org.mongodb.driver.cluster [SLF4JLogger.java : 71] Cluster created with settings {hosts=[10.11.201.114:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
 2022-10-12 16:44:52,582 [INFO] [main] com.zaxxer.hikari.HikariDataSource [HikariDataSource.java : 80] HikariPool-3 - Starting...
 2022-10-12 16:44:52,582 [WARN] [main] com.zaxxer.hikari.util.DriverDataSource [DriverDataSource.java : 70] Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.

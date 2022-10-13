@@ -1,4 +1,4 @@
-package com.zhenghao.demo.common.config;
+package com.xdap.zhenghao.demo.common.config;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +17,5 @@ public class HealthCheck {
     public int isServiceStart(){
         return 0;
     }
-
 
 }

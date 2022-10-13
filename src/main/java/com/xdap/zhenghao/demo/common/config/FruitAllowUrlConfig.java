@@ -1,4 +1,4 @@
-package com.zhenghao.demo.common.config;
+package com.xdap.zhenghao.demo.common.config;
 
 import com.xdap.api.moudle.custom.AllowUrlManage;
 import org.springframework.stereotype.Component;
@@ -14,12 +14,13 @@ import java.util.Set;
  * @date 2022/4/21 17:06
  */
 @Component
-public class zhenghaoStr implements AllowUrlManage {
+public class FruitAllowUrlConfig implements AllowUrlManage {
 
     @Override
     public Set<String> getCustomAllowUrls() {
         Set<String> urlSet = new HashSet<>();
-        urlSet.add("/custom/common/*");
+//        urlSet.add("/custom/*");
+        urlSet.add("/custom/*");
         return urlSet;
     }
 }
