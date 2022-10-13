@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.zhenghao</groupId>
+    <artifactId>demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>demo</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <groovy.eclipse.compiler.version>2.9.2-01</groovy.eclipse.compiler.version>
+        <groovy.eclipse.batch.version>2.4.3-01</groovy.eclipse.batch.version>
+        <papaas.version>3.2.18.2</papaas.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>dcloud-public</id>
+            <url>http://dcloud-maven.definesys.cn:30005/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>runtime</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>api</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>app</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>common</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>gateway-instead</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>xdap-data-trans</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>job-worker</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>xdap-function</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>xdap-process</artifactId>
+            <version>${papaas.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xdap</groupId>
+            <artifactId>motor-spring-boot-starter</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.10.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!--
+                <dependency>
+                    <groupId>com.xdap</groupId>
+                    <artifactId>process-api</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                    <scope>compile</scope>
+                </dependency>
+        -->
+        <!--fastjson-->
+        <!--<dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.74</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.definesys.mpaas</groupId>
+            <artifactId>query-mongodb</artifactId>
+            <version>apaas-1.1.11.trans</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.kfcfans</groupId>
+            <artifactId>powerjob-worker-spring-boot-starter</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>single</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.6.0</version>
+                        <configuration>
+                            <source>1.8</source>
+                            <target>1.8</target>
+                            <encoding>UTF-8</encoding>
+                            <compilerId>groovy-eclipse-compiler</compilerId>
+                            <verbose>true</verbose>
+                            <!-- 不使用lombok的情况下可以去掉下面的配置 -->
+                            <compilerArguments>
+                                <!-- consult Lombok docs to confirm agent class name for yourversion -->
+                                <javaAgentClass>lombok.launch.Agent</javaAgentClass>
+                            </compilerArguments>
+                            <fork>true</fork>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-eclipse-compiler</artifactId>
+                                <version>${groovy.eclipse.compiler.version}</version>
+                            </dependency>
+                            <!-- for 2.8.0-01 and later you must have an explicit dependencyon groovy-eclipse-batch -->
+                            <dependency>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-eclipse-batch</artifactId>
+                                <version>${groovy.eclipse.batch.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.codehaus.plexus</groupId>
+                                <artifactId>plexus-compiler-api</artifactId>
+                                <version>2.8.1</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>**/application.properties</exclude>
+                            <exclude>**/*.yml</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>lib</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>**/*.properties</exclude>
+                            <exclude>**/*.yml</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
+
