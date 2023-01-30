@@ -19,7 +19,6 @@ public class FruitAllowUrlConfig implements AllowUrlManage {
     @Override
     public Set<String> getCustomAllowUrls() {
         Set<String> urlSet = new HashSet<>();
-//        urlSet.add("/custom/*");
         urlSet.add("/custom/*");
         return urlSet;
     }
