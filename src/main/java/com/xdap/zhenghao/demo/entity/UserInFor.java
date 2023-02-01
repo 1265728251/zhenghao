@@ -85,6 +85,77 @@ public class UserInFor {
     /*合同类型*/
     private String contractType;
 
+    /*首次合同到期日*/
+    private String firstContractEndTime;
+
+    /*合同公司*/
+    private String contractCompanyName;
+
+    /*紧急联系人姓名*/
+    private String urgentContactsName;
+
+    /*证件号码*/
+    private String certNo;
+
+    /*个人社保账号*/
+    private String personalSi;
+
+    /*出生日期*/
+    private String birthTime;
+
+    /*首次合同起始日*/
+    private String firstContractStartTime;
+
+    /*现合同起始日*/
+    private String nowContractStartTime;
+
+    /*毕业院校*/
+    private String graduateSchool;
+
+    /*住址*/
+    private String address;
+
+    /*联系人电话*/
+    private String urgentContactsPhone;
+
+    /*毕业时间*/
+    private String graduationTime;
+
+    /*首次参加工作时间*/
+    private String joinWorkingTime;
+
+    /*员工状态*/
+    private String employeeStatus;
+
+    /*民族*/
+    private String nationType;
+
+    /*学历*/
+    private String highestEdu;
+
+    /*部门id*/
+    private String deptIds;
+
+    /*部门*/
+    private String dept;
+
+    /*主部门id*/
+    private String mainDeptId;
+
+    /*主部门*/
+    private String mainDept;
+
+    /*职称*/
+    private String  userTitle;
+
+
+
+
+
+
+
+
+
 
 
 
