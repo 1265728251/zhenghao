@@ -1,4 +1,5 @@
 package com.xdap.zhenghao.demo.utils;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +14,11 @@ import java.util.List;
 
 @Component
 public class StringToCollectionUtil {
-    public  List<String> convert(String input) {
-        input = input.replaceAll("\\[", "").replaceAll("\\]", "");
-        String[] array = input.split(",");
+    public static List<String> convert(String input) {
         List<String> result = new ArrayList<>();
-        for (String item : array) {
-            result.add(item.trim());
+        List<Object> objects = JSON.parseArray(input);
+        for (Object object : objects) {
+            result.add(JSON.toJSONString(object));
         }
         return result;
     }
