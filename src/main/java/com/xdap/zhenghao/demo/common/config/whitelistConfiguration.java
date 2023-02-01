@@ -14,7 +14,7 @@ import java.util.Set;
  * @date 2022/4/21 17:06
  */
 @Component
-public class FruitAllowUrlConfig implements AllowUrlManage {
+public class whitelistConfiguration implements AllowUrlManage {
 
     @Override
     public Set<String> getCustomAllowUrls() {

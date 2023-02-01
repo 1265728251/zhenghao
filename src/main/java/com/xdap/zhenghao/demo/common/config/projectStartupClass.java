@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/custom/common")
-public class HealthCheck {
+public class projectStartupClass {
     @GetMapping("/isServiceStart")
     public int isServiceStart(){
         return 0;

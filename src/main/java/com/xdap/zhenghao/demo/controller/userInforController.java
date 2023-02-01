@@ -1,11 +1,15 @@
-package com.xdap.zhenghao.demo.manpower;
+package com.xdap.zhenghao.demo.controller;
 import com.alibaba.fastjson.JSONObject;
+import com.xdap.zhenghao.demo.service.IGetEmployeeInformationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/custom/common/tool")
-public class OrgController {
+public class userInforController {
 
+    @Autowired
+    private IGetEmployeeInformationService iGetEmployeeInformationService;
     /*字符串拼接接口*/
     @ResponseBody
     @RequestMapping(value = "/reString", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -13,8 +17,9 @@ public class OrgController {
             System.out.println("请求的数据"+jsonParam.toJSONString());
             JSONObject jsonObject =new JSONObject();
             try {
-                jsonObject.put("Certificate_no",jsonParam.get("Certificate_no").toString());
-                jsonObject.put("majorString",jsonParam.get("major_list").toString());
+                String s= iGetEmployeeInformationService.getAllUserInFor().toString();
+                System.out.println("==============================================="+s);
+                jsonObject.put("useridList",s);
 
             }catch (Exception e) {
                 e.printStackTrace();

@@ -16,7 +16,7 @@ import java.io.IOException;
 public class HttpUtil {
 
     /*post请求*/
-    public static String sendPost(String url, String param) throws Exception {
+    public  String sendPost(String url, String param) throws Exception {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -24,7 +24,7 @@ public class HttpUtil {
         con.setRequestMethod("POST");
 
         // 设置请求头
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        con.setRequestProperty("Content-Type", "application/json");
 
         // 发送请求
         con.setDoOutput(true);
@@ -48,7 +48,7 @@ public class HttpUtil {
     }
 
     /*get请求*/
-    public static String sendGetRequest(String urlString) throws IOException {
+    public  String sendGetRequest(String urlString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -64,4 +64,3 @@ public class HttpUtil {
         }
     }
 }
-
