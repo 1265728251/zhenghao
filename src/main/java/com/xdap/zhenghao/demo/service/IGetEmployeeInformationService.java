@@ -1,6 +1,7 @@
 package com.xdap.zhenghao.demo.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xdap.zhenghao.demo.entity.UserInFor;
 
 import java.util.ArrayList;
 
@@ -17,5 +18,8 @@ public interface IGetEmployeeInformationService {
 
     /*把查询到的信息更新保存到数据库*/
     boolean save() throws Exception;
+
+    /*按手机号码查询员工信息*/
+    UserInFor getUserInFor(String mobile);
 
 }

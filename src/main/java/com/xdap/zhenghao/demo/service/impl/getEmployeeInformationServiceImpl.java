@@ -3,6 +3,7 @@ package com.xdap.zhenghao.demo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.common.utils.StringUtils;
+import com.xdap.zhenghao.demo.dao.userInForDao;
 import com.xdap.zhenghao.demo.entity.UserInFor;
 import com.xdap.zhenghao.demo.entity.applicationParameters;
 import com.xdap.zhenghao.demo.service.IGetEmployeeInformationService;
@@ -10,6 +11,7 @@ import com.xdap.zhenghao.demo.utils.ArrayUtil;
 import com.xdap.zhenghao.demo.utils.HttpUtil;
 import com.xdap.zhenghao.demo.utils.StringToCollectionUtil;
 import org.apache.avro.data.Json;
+import org.bouncycastle.crypto.signers.ISOTrailers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,9 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
     @Autowired
     private StringToCollectionUtil stringToCollectionUtil;
+
+    @Autowired
+    private userInForDao userInForDao;
     /*
     * @Author: yangzhi
     * @Date: 2023/1/30 17:25
@@ -155,7 +160,9 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
             String str = StringUtils.join(",", userid);
             /*封装请求参数*/
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("userid_list",str);
+            String useridString = str.replace("\"", "");
+
+            jsonObject.put("userid_list",useridString);
 
             System.out.println("员工详细信息请求参数"+jsonObject.toJSONString());
             /*与钉钉进行网络请求
@@ -167,7 +174,7 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
         }
 
-        System.out.println("与钉钉请求获取到的所有员工详细信息"+inForList);
+       // System.out.println("与钉钉请求获取到的所有员工详细信息"+inForList);
 
 
 
@@ -201,22 +208,35 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
         for (int i =0; i<allUserInFor.size(); i++){
             /*解析数据*/
             JSONObject infor = allUserInFor.get(i);
-            JSONObject result = (JSONObject) infor.get("result");
-            List<String> listResult = stringToCollectionUtil.convert(result.toJSONString());
+            System.out.println("每一次请求的返回json中的用户数据列表1"+infor.toJSONString());
+            System.out.println("每一次请求的返回json中的用户数据列表4"+infor.get("result").toString());
+            List<String> listResult = stringToCollectionUtil.convert(infor.get("result").toString());
 
-            JSONObject jsonObject = (JSONObject) JSON.parse(listResult.get(1));
+            for (int b = 0;b<listResult.size();b++){
+                System.out.println("每一次请求的返回json中的用户数据列表2"+listResult.get(b));
+            }
 
-            JSONObject field_list = (JSONObject) jsonObject.get("field_list");
 
-            List<String> listInFor = stringToCollectionUtil.convert(field_list.toJSONString());
+            /*遍历每一次请求的所有用户信息*/
+            for (int t =0;t<listResult.size();t++){
+
+            JSONObject jsonObject = (JSONObject) JSON.parse(listResult.get(t));
+            System.out.println("每一次请求的返回json中的用户数据列表3"+jsonObject.toJSONString());
+
+            String ss = jsonObject.get("field_list").toString();
+
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+ss);
+
+            List<String> listInFor = stringToCollectionUtil.convert(ss);
 
             /*保存单个人的数据*/
             JSONObject user = new JSONObject();
 
             for (int e =0;e<listInFor.size();e++){
                 JSONObject parse = (JSONObject) JSON.parse(listInFor.get(e));
-                user.put(parse.get("field_code").toString(),parse.get("label"));
+                user.put(parse.get("field_code").toString(),parse.get("label").toString());
             }
+                System.out.println("保存单个人的数据"+user.toJSONString());
 
             UserInFor userInFor = UserInFor.builder()
                     .name(user.get("sys00-name").toString())
@@ -258,11 +278,41 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
                     .graduationTime(user.get("sys03-graduationTime").toString())
                     .employeeStatus(user.get("sys01-employeeStatus").toString())
                     .nationType(user.get("sys02-nationType").toString())
+                    .highestEdu(user.get("sys03-highestEdu").toString())
+                    .deptIds(user.get("sys00-deptIds").toString())
+                    .dept(user.get("sys00-dept").toString())
+                    .mainDeptId(user.get("sys00-mainDeptId").toString())
+                    .mainDept(user.get("sys00-mainDept").toString())
                     .build();
+            /*查询数据库是该用户的数据，如果有，更新，没有新增*/
+            boolean isNo = userInForDao.mobileGetUserInFor(userInFor.getMobile()).size()>0;
 
+            if (isNo){
+                /*更新*/
+                boolean b = userInForDao.updateUserData(userInFor.getMobile(), userInFor) > 0;
+                System.out.println("更新："+b);
+
+            }else {
+                /*新增*/
+                userInForDao.save(userInFor);
+
+            }
+
+            }
 
         }
 
         return false;
+    }
+    /*
+    * @Author: yangzhi
+    * @Date: 2023/2/1 14:03
+    * @Description:根据手机号码查询用户信息
+    * @return:
+    */
+    @Override
+    public UserInFor getUserInFor(String mobile) {
+
+        return  userInForDao.mobileGetUserInFor(mobile).get(0);
     }
 }
