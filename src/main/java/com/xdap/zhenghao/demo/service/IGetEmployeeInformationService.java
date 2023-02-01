@@ -15,4 +15,7 @@ public interface IGetEmployeeInformationService {
     /*通过获取到的userid列表，查询所有的用户信息字段信息*/
     ArrayList<JSONObject> getAllUserInFor() throws Exception;
 
+    /*把查询到的信息更新保存到数据库*/
+    boolean save() throws Exception;
+
 }

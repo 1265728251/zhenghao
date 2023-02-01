@@ -3,6 +3,7 @@ package com.xdap.zhenghao.demo.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.common.utils.StringUtils;
+import com.xdap.zhenghao.demo.entity.UserInFor;
 import com.xdap.zhenghao.demo.entity.applicationParameters;
 import com.xdap.zhenghao.demo.service.IGetEmployeeInformationService;
 import com.xdap.zhenghao.demo.utils.ArrayUtil;
@@ -161,9 +162,11 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
              */
             String userInFor = httpUtil.sendPost("https://oapi.dingtalk.com/topapi/smartwork/hrm/employee/list?access_token=" + token, jsonObject.toJSONString());
 
+
             inForList.add((JSONObject) JSON.parse(userInFor));
 
         }
+
         System.out.println("与钉钉请求获取到的所有员工详细信息"+inForList);
 
 
@@ -189,5 +192,77 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
 
         return inForList;
+    }
+
+    @Override
+    public boolean save() throws Exception {
+        ArrayList<JSONObject> allUserInFor = getAllUserInFor();
+        /*遍历保存或更新*/
+        for (int i =0; i<allUserInFor.size(); i++){
+            /*解析数据*/
+            JSONObject infor = allUserInFor.get(i);
+            JSONObject result = (JSONObject) infor.get("result");
+            List<String> listResult = stringToCollectionUtil.convert(result.toJSONString());
+
+            JSONObject jsonObject = (JSONObject) JSON.parse(listResult.get(1));
+
+            JSONObject field_list = (JSONObject) jsonObject.get("field_list");
+
+            List<String> listInFor = stringToCollectionUtil.convert(field_list.toJSONString());
+
+            /*保存单个人的数据*/
+            JSONObject user = new JSONObject();
+
+            for (int e =0;e<listInFor.size();e++){
+                JSONObject parse = (JSONObject) JSON.parse(listInFor.get(e));
+                user.put(parse.get("field_code").toString(),parse.get("label"));
+            }
+
+            UserInFor userInFor = UserInFor.builder()
+                    .name(user.get("sys00-name").toString())
+                    .email(user.get("sys00-email").toString())
+                    .mobile(user.get("sys00-mobile").toString())
+                    .jobNumber(user.get("sys00-jobNumber").toString())
+                    .confirmJoinTime(user.get("sys00-confirmJoinTime").toString())
+                    .workPlace(user.get("sys00-workPlace").toString())
+                    .position(user.get("sys00-position").toString())
+                    .politicalStatus(user.get("sys00-sys02-politicalStatus").toString())
+                    .major(user.get("sys03-major").toString())
+                    .nowContractEndTime(user.get("sys05-nowContractEndTime").toString())
+                    .regularTime(user.get("sys01-regularTime").toString())
+                    .familyMemberGender(user.get("familyMemberGender").toString())
+                    .certAddress(user.get("sys02-certAddress").toString())
+                    .familyMemberPhone(user.get("sys07-familyMemberPhone").toString())
+                    .residenceType(user.get("sys02-residenceType").toString())
+                    .realName(user.get("sys02-realName").toString())
+                    .sexType(user.get("sys02-sexType").toString())
+                    .employeeType(user.get("sys01-employeeType").toString())
+                    .contractPeriodType(user.get("sys05-contractPeriodType").toString())
+                    .probationPeriodType(user.get("sys01-probationPeriodType").toString())
+                    .bankAccountN(user.get("sys04-bankAccountNo").toString())
+                    .contractRenewCount(user.get("sys05-contractRenewCount").toString())
+                    .accountBank(user.get("sys04-accountBank").toString())
+                    .personalHf(user.get("sys09-personalHf").toString())
+                    .contractType(user.get("sys05-contractType").toString())
+                    .firstContractStartTime(user.get("sys05-firstContractEndTime").toString())
+                    .contractCompanyName(user.get("sys05-contractCompanyName").toString())
+                    .certNo(user.get("sys02-certNo").toString())
+                    .personalSi(user.get("sys09-personalSi").toString())
+                    .birthTime(user.get("sys02-birthTime").toString())
+                    .firstContractStartTime(user.get("sys05-firstContractStartTime").toString())
+                    .nowContractStartTime(user.get("sys05-nowContractStartTime").toString())
+                    .graduateSchool(user.get("sys03-graduateSchool").toString())
+                    .address(user.get("sys02-address").toString())
+                    .urgentContactsPhone(user.get("sys06-urgentContactsPhone").toString())
+                    .joinWorkingTime(user.get("sys02-joinWorkingTime").toString())
+                    .graduationTime(user.get("sys03-graduationTime").toString())
+                    .employeeStatus(user.get("sys01-employeeStatus").toString())
+                    .nationType(user.get("sys02-nationType").toString())
+                    .build();
+
+
+        }
+
+        return false;
     }
 }

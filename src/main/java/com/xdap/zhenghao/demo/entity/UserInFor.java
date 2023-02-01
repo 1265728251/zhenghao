@@ -1,5 +1,6 @@
 package com.xdap.zhenghao.demo.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import scala.collection.Factory;
 
@@ -9,7 +10,11 @@ import scala.collection.Factory;
  * @Description: 员工详细实体类
  */
 @Data
+@Builder
 public class UserInFor {
+    /*id*/
+    private Integer id;
+
     /*姓名*/
     private String name;
 
