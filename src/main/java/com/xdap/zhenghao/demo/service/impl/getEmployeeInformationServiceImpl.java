@@ -232,58 +232,67 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
             /*保存单个人的数据*/
             JSONObject user = new JSONObject();
 
-            for (int e =0;e<listInFor.size();e++){
-                JSONObject parse = (JSONObject) JSON.parse(listInFor.get(e));
-                user.put(parse.get("field_code").toString(),parse.get("label").toString());
-            }
+                for (int e =0;e<listInFor.size();e++){
+                    JSONObject parse = (JSONObject) JSON.parse(listInFor.get(e));
+
+                    String in ="";
+                    try{
+                        in = parse.get("label").toString();
+                    }catch (Exception E){
+                        in = "";
+                    }
+
+                    user.put(parse.get("field_code").toString(),in);
+
+                }
                 System.out.println("保存单个人的数据"+user.toJSONString());
 
-            UserInFor userInFor = UserInFor.builder()
-                    .name(user.get("sys00-name").toString())
-                    .email(user.get("sys00-email").toString())
-                    .mobile(user.get("sys00-mobile").toString())
-                    .jobNumber(user.get("sys00-jobNumber").toString())
-                    .confirmJoinTime(user.get("sys00-confirmJoinTime").toString())
-                    .workPlace(user.get("sys00-workPlace").toString())
-                    .position(user.get("sys00-position").toString())
-                    .politicalStatus(user.get("sys00-sys02-politicalStatus").toString())
-                    .major(user.get("sys03-major").toString())
-                    .nowContractEndTime(user.get("sys05-nowContractEndTime").toString())
-                    .regularTime(user.get("sys01-regularTime").toString())
-                    .familyMemberGender(user.get("familyMemberGender").toString())
-                    .certAddress(user.get("sys02-certAddress").toString())
-                    .familyMemberPhone(user.get("sys07-familyMemberPhone").toString())
-                    .residenceType(user.get("sys02-residenceType").toString())
-                    .realName(user.get("sys02-realName").toString())
-                    .sexType(user.get("sys02-sexType").toString())
-                    .employeeType(user.get("sys01-employeeType").toString())
-                    .contractPeriodType(user.get("sys05-contractPeriodType").toString())
-                    .probationPeriodType(user.get("sys01-probationPeriodType").toString())
-                    .bankAccountN(user.get("sys04-bankAccountNo").toString())
-                    .contractRenewCount(user.get("sys05-contractRenewCount").toString())
-                    .accountBank(user.get("sys04-accountBank").toString())
-                    .personalHf(user.get("sys09-personalHf").toString())
-                    .contractType(user.get("sys05-contractType").toString())
-                    .firstContractStartTime(user.get("sys05-firstContractEndTime").toString())
-                    .contractCompanyName(user.get("sys05-contractCompanyName").toString())
-                    .certNo(user.get("sys02-certNo").toString())
-                    .personalSi(user.get("sys09-personalSi").toString())
-                    .birthTime(user.get("sys02-birthTime").toString())
-                    .firstContractStartTime(user.get("sys05-firstContractStartTime").toString())
-                    .nowContractStartTime(user.get("sys05-nowContractStartTime").toString())
-                    .graduateSchool(user.get("sys03-graduateSchool").toString())
-                    .address(user.get("sys02-address").toString())
-                    .urgentContactsPhone(user.get("sys06-urgentContactsPhone").toString())
-                    .joinWorkingTime(user.get("sys02-joinWorkingTime").toString())
-                    .graduationTime(user.get("sys03-graduationTime").toString())
-                    .employeeStatus(user.get("sys01-employeeStatus").toString())
-                    .nationType(user.get("sys02-nationType").toString())
-                    .highestEdu(user.get("sys03-highestEdu").toString())
-                    .deptIds(user.get("sys00-deptIds").toString())
-                    .dept(user.get("sys00-dept").toString())
-                    .mainDeptId(user.get("sys00-mainDeptId").toString())
-                    .mainDept(user.get("sys00-mainDept").toString())
-                    .build();
+                UserInFor userInFor = UserInFor.builder()
+                        .name(user.get("sys00-name").toString())
+                        .email(user.get("sys00-email").toString())
+                        .mobile(user.get("sys00-mobile").toString())
+                        .jobNumber(user.get("sys00-jobNumber").toString())
+                        .confirmJoinTime(user.get("sys00-confirmJoinTime").toString())
+                        .workPlace(user.get("sys00-workPlace").toString())
+                        .position(user.get("sys00-position").toString())
+                        .politicalStatus(user.get("sys02-politicalStatus").toString())
+                        .major(user.get("sys03-major").toString())
+                        .nowContractEndTime(user.get("sys05-nowContractEndTime").toString())
+                        .regularTime(user.get("sys01-regularTime").toString())
+                        .familyMemberGender(user.get("sys07-familyMemberGender").toString())
+                        .certAddress(user.get("sys02-certAddress").toString())
+                        .familyMemberPhone(user.get("sys07-familyMemberPhone").toString())
+                        .residenceType(user.get("sys02-residenceType").toString())
+                        .realName(user.get("sys02-realName").toString())
+                        .sexType(user.get("sys02-sexType").toString())
+                        .employeeType(user.get("sys01-employeeType").toString())
+                        .contractPeriodType(user.get("sys05-contractPeriodType").toString())
+                        .probationPeriodType(user.get("sys01-probationPeriodType").toString())
+                        .bankAccountN(user.get("sys04-bankAccountNo").toString())
+                        .contractRenewCount(user.get("sys05-contractRenewCount").toString())
+                        .accountBank(user.get("sys04-accountBank").toString())
+                        .personalHf(user.get("sys09-personalHf").toString())
+                        .contractType(user.get("sys05-contractType").toString())
+                        .firstContractStartTime(user.get("sys05-firstContractEndTime").toString())
+                        .contractCompanyName(user.get("sys05-contractCompanyName").toString())
+                        .certNo(user.get("sys02-certNo").toString())
+                        .personalSi(user.get("sys09-personalSi").toString())
+                        .birthTime(user.get("sys02-birthTime").toString())
+                        .firstContractStartTime(user.get("sys05-firstContractStartTime").toString())
+                        .nowContractStartTime(user.get("sys05-nowContractStartTime").toString())
+                        .graduateSchool(user.get("sys03-graduateSchool").toString())
+                        .address(user.get("sys02-address").toString())
+                        .urgentContactsPhone(user.get("sys06-urgentContactsPhone").toString())
+                        .joinWorkingTime(user.get("sys02-joinWorkingTime").toString())
+                        .graduationTime(user.get("sys03-graduationTime").toString())
+                        .employeeStatus(user.get("sys01-employeeStatus").toString())
+                        .nationType(user.get("sys02-nationType").toString())
+                        .highestEdu(user.get("sys03-highestEdu").toString())
+                        .deptIds(user.get("sys00-deptIds").toString())
+                        .dept(user.get("sys00-dept").toString())
+                        .mainDeptId(user.get("sys00-mainDeptId").toString())
+                        .mainDept(user.get("sys00-mainDept").toString())
+                        .build();
             /*查询数据库是该用户的数据，如果有，更新，没有新增*/
             boolean isNo = userInForDao.mobileGetUserInFor(userInFor.getMobile()).size()>0;
 
