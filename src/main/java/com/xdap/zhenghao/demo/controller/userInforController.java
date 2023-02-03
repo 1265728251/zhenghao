@@ -13,14 +13,15 @@ public class userInforController {
 
     @Autowired
     private IGetEmployeeInformationService iGetEmployeeInformationService;
-    /*字符串拼接接口*/
+
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String saveUser(@RequestBody JSONObject jsonParam) {
             System.out.println("请求的数据"+jsonParam.toJSONString());
             JSONObject jsonObject =new JSONObject();
             try {
-                boolean isNo =  iGetEmployeeInformationService.save();
+                iGetEmployeeInformationService.save();
+                boolean isNo = true ;
                 jsonObject.put("save",isNo);
 
             }catch (Exception e) {
@@ -29,7 +30,7 @@ public class userInforController {
             return jsonObject.toJSONString();
         }
 
-    /*字符串拼接接口*/
+
     @ResponseBody
     @RequestMapping(value = "/getUserInFor", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public String getuser(@RequestBody JSONObject jsonParam) {
@@ -37,7 +38,7 @@ public class userInforController {
         JSONObject jsonObject =new JSONObject();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            UserInFor user = iGetEmployeeInformationService.getUserInFor(jsonObject.get("mobile").toString());
+            UserInFor user = iGetEmployeeInformationService.getUserInFor("+86-"+jsonParam.get("mobile").toString());
             // 将实体类转换为json
             String s = objectMapper.writeValueAsString(user);
             System.out.println("请求返回的数据是："+s);

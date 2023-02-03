@@ -61,10 +61,12 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
        jsonObject.put("appKey",appKey);
        jsonObject.put("appSecret",appSecret);
 
-        System.out.println("获取token请求参数"+jsonObject.toJSONString());
+       // System.out.println("获取token请求参数"+jsonObject.toJSONString());
         String s = httpUtil.sendPost("https://api.dingtalk.com/v1.0/oauth2/accessToken", jsonObject.toJSONString());
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1 = (JSONObject) JSON.parse(s);
+
+
         return jsonObject1.get("accessToken").toString();
     }
 
@@ -103,8 +105,8 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
             List<String> convert = stringToCollectionUtil.convert(data_list);
 
 
-            System.out.println("原始数组长度"+convert.size());
-            System.out.println("原始数组数据"+convert.toString());
+//            System.out.println("原始数组长度"+convert.size());
+//            System.out.println("原始数组数据"+convert.toString());
 
             /*把每一页的集合添加到useridList数组中*/
             for (int i =0;i<convert.size();i++){
@@ -118,7 +120,7 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
             }
         }
 
-        System.out.println("获取到的员工userid数组"+useridList);
+       // System.out.println("获取到的员工userid数组"+useridList);
 
         return useridList;
     }
@@ -143,10 +145,10 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
        /*打印输入*/
         ArrayList<String[]> list = strings;
-        System.out.println("数组分为了"+strings.size()+"组");
+        //System.out.println("数组分为了"+strings.size()+"组");
         for (String[] array : list) {
 
-            System.out.println("分组后的数组"+Arrays.toString(array));
+            //System.out.println("分组后的数组"+Arrays.toString(array));
         }
 
         /*存储请求的用户详情*/
@@ -202,18 +204,21 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
     }
 
     @Override
-    public boolean save() throws Exception {
+    public JSONObject save() throws Exception {
+
+        /*计数*/
+        int add = 0;
+        int updata=0;
         ArrayList<JSONObject> allUserInFor = getAllUserInFor();
         /*遍历保存或更新*/
         for (int i =0; i<allUserInFor.size(); i++){
             /*解析数据*/
             JSONObject infor = allUserInFor.get(i);
-            System.out.println("每一次请求的返回json中的用户数据列表1"+infor.toJSONString());
-            System.out.println("每一次请求的返回json中的用户数据列表4"+infor.get("result").toString());
+
             List<String> listResult = stringToCollectionUtil.convert(infor.get("result").toString());
 
             for (int b = 0;b<listResult.size();b++){
-                System.out.println("每一次请求的返回json中的用户数据列表2"+listResult.get(b));
+
             }
 
 
@@ -221,11 +226,11 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
             for (int t =0;t<listResult.size();t++){
 
             JSONObject jsonObject = (JSONObject) JSON.parse(listResult.get(t));
-            System.out.println("每一次请求的返回json中的用户数据列表3"+jsonObject.toJSONString());
+
 
             String ss = jsonObject.get("field_list").toString();
 
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+ss);
+           // System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+ss);
 
             List<String> listInFor = stringToCollectionUtil.convert(ss);
 
@@ -247,6 +252,20 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
                 }
                 System.out.println("保存单个人的数据"+user.toJSONString());
 
+                /**/
+                String[] str = {"sys02-politicalStatus", "sys03-major", "sys00-reportManager", "sys02-certAddress", "sys07-familyMemberPhone", "sys02-realName", "sys01-employeeType", "sys07-familyMemberBirthday", "sys05-contractPeriodType", "sys00-deptIds", "sys00-jobNumber", "sys00-confirmJoinTime", "sys04-bankAccountNo", "sys05-contractRenewCount", "sys04-accountBank", "sys05-contractType", "3baafdf8-f74a-489e-bb03-fd094eecfc3b", "sys00-mainDeptId", "881e46fd-443f-4605-a45a-a16a5c817ddd", "sys05-firstContractStartTime", "sys05-nowContractStartTime", "sys07-familyMemberRelation", "sys00-workPlace", "sys03-graduationTime", "sys03-highestEdu", "sys00-dept", "sys01-positionLevel", "sys05-nowContractEndTime", "sys01-regularTime", "sys07-familyMemberGender", "sys02-residenceType", "sys00-mobile", "sys02-sexType", "sys01-probationPeriodType", "f325f768-f2f8-4f35-bc73-ce397d0cf404", "sys02-certEndTime", "sys09-personalHf", "sys05-firstContractEndTime", "sys00-mainDept", "dad51699-632f-4408-8381-976ec13b1dbc", "sys05-contractCompanyName", "sys00-tel", "sys06-urgentContactsName", "sys02-certNo", "sys09-personalSi", "sys02-birthTime", "sys03-graduateSchool", "sys02-address", "sys06-urgentContactsPhone", "sys01-planRegularTime", "sys07-familyMemberName", "sys00-reportManagerId", "sys06-urgentContactsRelation", "sys02-marriage", "sys00-remark", "sys00-position", "sys00-name", "sys02-joinWorkingTime", "sys01-employeeStatus", "sys02-nationType", "ce8d436b-1078-4a67-9eff-f237fa71c10e", "sys00-email"};
+
+                /*补充空的数据*/
+                for (int z = 0;z<str.length;z++){
+                    try{
+                        if (user.get(str[z])==null){
+                            user.put(str[z],"");
+                        }
+                    }catch (Exception e){
+
+                    }
+
+                }
                 UserInFor userInFor = UserInFor.builder()
                         .name(user.get("sys00-name").toString())
                         .email(user.get("sys00-email").toString())
@@ -259,6 +278,7 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
                         .major(user.get("sys03-major").toString())
                         .nowContractEndTime(user.get("sys05-nowContractEndTime").toString())
                         .regularTime(user.get("sys01-regularTime").toString())
+
                         .familyMemberGender(user.get("sys07-familyMemberGender").toString())
                         .certAddress(user.get("sys02-certAddress").toString())
                         .familyMemberPhone(user.get("sys07-familyMemberPhone").toString())
@@ -298,12 +318,16 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
             if (isNo){
                 /*更新*/
-                boolean b = userInForDao.updateUserData(userInFor.getMobile(), userInFor) > 0;
-                System.out.println("更新："+b);
+                boolean is = userInForDao.updateUserData(userInFor.getMobile(), userInFor) > 0;
+                System.out.println("更新："+is);
+                if (is==true){
+                   updata+=1;
+                }
 
             }else {
                 /*新增*/
                 userInForDao.save(userInFor);
+                add+=1;
 
             }
 
@@ -311,7 +335,11 @@ public class getEmployeeInformationServiceImpl implements IGetEmployeeInformatio
 
         }
 
-        return false;
+        JSONObject json = new JSONObject();
+        json.put("add",add);
+        json.put("updata",updata);
+
+        return json;
     }
     /*
     * @Author: yangzhi

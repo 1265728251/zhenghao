@@ -17,7 +17,7 @@ public interface IGetEmployeeInformationService {
     ArrayList<JSONObject> getAllUserInFor() throws Exception;
 
     /*把查询到的信息更新保存到数据库*/
-    boolean save() throws Exception;
+    JSONObject save() throws Exception;
 
     /*按手机号码查询员工信息*/
     UserInFor getUserInFor(String mobile);
